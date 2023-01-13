@@ -1,0 +1,2 @@
+-interfacer le gyro en i2C
+-ecrie le code c pour recup les donner avec print f et polloing
