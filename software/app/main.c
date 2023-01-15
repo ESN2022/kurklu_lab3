@@ -103,15 +103,20 @@ int main(){
 	data = lecture_i2c(OPENCORES_I2C_0_BASE,0x37);
 	alt_printf("Z1 = %x\n",data);*/
 	
-	int z1,z0;
+	int x1,x0,y1,y0,z1,z0;
 	while(1){
 		
+		//Lecture X0 Lecture X1
+		x0 = lecture_i2c(OPENCORES_I2C_0_BASE,X0);
+		x1 = lecture_i2c(OPENCORES_I2C_0_BASE,X1);
+		//Lecture Y0 Lecture Y1
+		y0 = lecture_i2c(OPENCORES_I2C_0_BASE,Y0);
+		y1 = lecture_i2c(OPENCORES_I2C_0_BASE,Y1);
 		//Lecture Z0 Lecture Z1
-
 		z0 = lecture_i2c(OPENCORES_I2C_0_BASE,Z0);
 		z1 = lecture_i2c(OPENCORES_I2C_0_BASE,Z1);
 		
-		alt_printf("Z = %x\n\n",(z1<<8) | z0 );
+		alt_printf("X= %x, Y= %x, Z= %x\n",(x1<<8)|x0,(y1<<8)|y0,(z1<<8)|z0  );
 		alt_printf("--------------------\n");
 		
 		
