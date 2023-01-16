@@ -75,6 +75,44 @@ void calibration(){
 }
 
 
+//Fonction qui prend un entier et le decoupe et ecrit sur les registres des 7 segments
+void int_to_seg(int nbr){
+	int i =0;
+	int tab[5] = {0,0,0,0,0};
+
+	while (nbr >= 10) {
+		tab[i] = nbr % 10;
+		nbr = nbr / 10;
+		i = i+1;
+	}
+	tab[i] = nbr;
+
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG0_BASE,tab[0]);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG1_BASE,tab[1]);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG2_BASE,tab[2]);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG3_BASE,tab[3]);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG4_BASE,tab[4]);
+
+}
+
+void affichage_Z(){
+	int z0,z1,z;
+	//Lecture Z0 Lecture Z1
+	z0 = lecture_i2c(OPENCORES_I2C_0_BASE,Z0);
+	z1 = lecture_i2c(OPENCORES_I2C_0_BASE,Z1);
+	z = (z1<<8)|z0;
+	
+	//to signed
+	signed int zz = z;
+	
+	z = z*3.9;
+	z = (int)z;
+	
+	int_to_seg(z);
+	
+}
+
+
 int main(){
 	alt_printf("\n\n\n\nDans le main\n\n");
 	int data =0;
@@ -126,17 +164,10 @@ int main(){
 	
 	calibration();
 
-	//Test 7 Segment
-	IOWR_ALTERA_AVALON_PIO_DATA(SEG0_BASE,0);
-	IOWR_ALTERA_AVALON_PIO_DATA(SEG1_BASE,1);
-	IOWR_ALTERA_AVALON_PIO_DATA(SEG2_BASE,2);
-	IOWR_ALTERA_AVALON_PIO_DATA(SEG3_BASE,3);
-	IOWR_ALTERA_AVALON_PIO_DATA(SEG4_BASE,4);
-	IOWR_ALTERA_AVALON_PIO_DATA(SEG5_BASE,0b0101010);
 	
 	int x1,x0,y1,y0,z1,z0;
 	while(1){
-		
+		/*
 		//Lecture X0 Lecture X1
 		x0 = lecture_i2c(OPENCORES_I2C_0_BASE,X0);
 		x1 = lecture_i2c(OPENCORES_I2C_0_BASE,X1);
@@ -150,7 +181,9 @@ int main(){
 		alt_printf("X= %x, Y= %x, Z= %x\n",(x1<<8)|x0,(y1<<8)|y0,(z1<<8)|z0);
 		alt_printf("--------------------\n");
 		
+		*/
 		
+		affichage_Z();
 		
 		usleep(1000000);
 	}
