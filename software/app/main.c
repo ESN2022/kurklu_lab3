@@ -6,6 +6,12 @@
 #include "sys/alt_sys_init.h"
 #include "opencores_i2c.h"
 #include "opencores_i2c_regs.h"
+#include "altera_avalon_pio_regs.h"
+#include "sys/alt_irq.h"
+#include "altera_avalon_timer_regs.h"
+#include "altera_avalon_timer.h"
+
+
 
 #define ALT_ADDR 0x1d
 #define SPEED 100000
@@ -118,10 +124,15 @@ int main(){
 	data = lecture_i2c(OPENCORES_I2C_0_BASE,DATA_FORMAT);
 	alt_printf("DATA_FORMAT = %x\n",data);
 	
-
-	
 	calibration();
 
+	//Test 7 Segment
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG0_BASE,0);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG1_BASE,1);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG2_BASE,2);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG3_BASE,3);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG4_BASE,4);
+	IOWR_ALTERA_AVALON_PIO_DATA(SEG5_BASE,0b0101010);
 	
 	int x1,x0,y1,y0,z1,z0;
 	while(1){
