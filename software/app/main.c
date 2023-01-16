@@ -22,6 +22,16 @@
 #define Z1 0x37
 
 
+#define OFSX 0x1E
+#define OFSY 0x1F
+#define OFSZ  0x20
+
+#define CALIBX 0
+#define CALIBY 6
+#define CALIBZ 17
+
+
+
 
 //Fonction pour lire avec l'I2C
 int lecture_i2c(int base,int addr){
@@ -42,6 +52,21 @@ void ecriture_i2c(int base,int addr,int value){
 	I2C_write(base,value,1);
 }
 
+
+void calibration(){
+	//Ecriture OFSZ
+	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSZ,CALIBZ);
+	usleep(100000);
+	
+	//Ecriture OFSX
+	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSX,CALIBX);
+	usleep(100000);
+	
+	//Ecriture OFSY
+	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSY,CALIBY);
+	usleep(100000);
+	
+}
 
 
 int main(){
@@ -93,15 +118,10 @@ int main(){
 	data = lecture_i2c(OPENCORES_I2C_0_BASE,DATA_FORMAT);
 	alt_printf("DATA_FORMAT = %x\n",data);
 	
-	/*
-	//Lecture Z0
-	alt_printf("Lecture Z0\n");
-	data = lecture_i2c(OPENCORES_I2C_0_BASE,0x36);
-	alt_printf("Z0 = %x\n",data);
-	//Lecture Z1
-	alt_printf("Lecture Z1\n");
-	data = lecture_i2c(OPENCORES_I2C_0_BASE,0x37);
-	alt_printf("Z1 = %x\n",data);*/
+
+	
+	calibration();
+
 	
 	int x1,x0,y1,y0,z1,z0;
 	while(1){
@@ -116,7 +136,7 @@ int main(){
 		z0 = lecture_i2c(OPENCORES_I2C_0_BASE,Z0);
 		z1 = lecture_i2c(OPENCORES_I2C_0_BASE,Z1);
 		
-		alt_printf("X= %x, Y= %x, Z= %x\n",(x1<<8)|x0,(y1<<8)|y0,(z1<<8)|z0  );
+		alt_printf("X= %x, Y= %x, Z= %x\n",(x1<<8)|x0,(y1<<8)|y0,(z1<<8)|z0);
 		alt_printf("--------------------\n");
 		
 		
