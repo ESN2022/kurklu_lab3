@@ -36,7 +36,7 @@
 #define CALIBY 6
 #define CALIBZ 17
 
-
+int A0,A1;
 
 //Fonction pour lire avec l'I2C
 int lecture_i2c(int base,int addr){
@@ -163,19 +163,42 @@ void init_ADXL345(){
 	alt_printf("Lecture DATA_FORMAT\n");
 	alt_printf("DATA_FORMAT = %x\n\n",lecture_i2c(OPENCORES_I2C_0_BASE,DATA_FORMAT));
 	
+	A0 = X0;
+	A1 = X1;
+	
 }
 
-
-
+//Fonction qui gere l'interruption avec le key
 static void key_interrupt(void *Context, alt_u32 id){
 	
 	alt_printf("INTERRUPT Key\n");
 	
+	switch(A0){
+		case X0:
+			A0 = Y0;
+			A1 = Y1;
+			break;
+		case Y0:
+			A0 = Z0;
+			A1 = Z1;
+			break;
+		case Z0:
+			A0 = X0;
+			A1 = X1;
+			break;
+		default:
+			A0 = X0;
+			A1 = X1;
+			break;
+	}
 	
 	
 	//Reset la detection des boutons
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEY_BASE,0b1);
 }
+
+
+
 
 
 int main(){
@@ -186,8 +209,6 @@ int main(){
 	
 	//Calibration
 	calibration();
-	
-	
 	
 	// applique un mask 0b11 afin d'activer les boutons
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(KEY_BASE,0b1);
@@ -202,7 +223,7 @@ int main(){
 	while(1){
 		
 		affichache_UART();
-		affichage_XYZ(Z0,Z1);
+		affichage_XYZ(A0,A1);
 		usleep(1000000);
 	}
 }
