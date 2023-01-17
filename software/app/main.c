@@ -166,6 +166,18 @@ void init_ADXL345(){
 }
 
 
+
+static void key_interrupt(void *Context, alt_u32 id){
+	
+	alt_printf("INTERRUPT Key\n");
+	
+	
+	
+	//Reset la detection des boutons
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEY_BASE,0b1);
+}
+
+
 int main(){
 	alt_printf("\n\n\n\nDans le main\n\n");
 	
@@ -174,6 +186,19 @@ int main(){
 	
 	//Calibration
 	calibration();
+	
+	
+	
+	// applique un mask 0b11 afin d'activer les boutons
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(KEY_BASE,0b1);
+	
+	// active la detection des boutons
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEY_BASE,0b1);
+	
+	if(alt_irq_register(KEY_IRQ,NULL,key_interrupt) != 0){
+		alt_printf("Erreur creation interruption pour key\n");
+	}
+	
 	while(1){
 		
 		affichache_UART();
