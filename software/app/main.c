@@ -197,8 +197,20 @@ static void key_interrupt(void *Context, alt_u32 id){
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEY_BASE,0b1);
 }
 
-
-
+//Fonction pour l'initialisation de l'interruption
+void init_key_interrupt(){
+	
+	// applique un mask 0b11 afin d'activer les boutons
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(KEY_BASE,0b1);
+	
+	// active la detection des boutons
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEY_BASE,0b1);
+	
+	if(alt_irq_register(KEY_IRQ,NULL,key_interrupt) != 0){
+		alt_printf("Erreur creation interruption pour key\n");
+	}
+	
+}
 
 
 int main(){
@@ -210,15 +222,8 @@ int main(){
 	//Calibration
 	calibration();
 	
-	// applique un mask 0b11 afin d'activer les boutons
-	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(KEY_BASE,0b1);
-	
-	// active la detection des boutons
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEY_BASE,0b1);
-	
-	if(alt_irq_register(KEY_IRQ,NULL,key_interrupt) != 0){
-		alt_printf("Erreur creation interruption pour key\n");
-	}
+	//Initialisation de l'interruption
+	init_key_interrupt();
 	
 	while(1){
 		
