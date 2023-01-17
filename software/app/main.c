@@ -197,7 +197,7 @@ static void key_interrupt(void *Context, alt_u32 id){
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(KEY_BASE,0b1);
 }
 
-//Fonction pour l'initialisation de l'interruption
+//Fonction pour l'initialisation de l'interruption du key
 void init_key_interrupt(){
 	
 	// applique un mask 0b11 afin d'activer les boutons
@@ -212,6 +212,25 @@ void init_key_interrupt(){
 	
 }
 
+//Fonction qui gere l'interruption avec le timer
+static void timer_interrupt(void *Context, alt_u32 id){
+	
+	alt_printf("INTERRUPT timer\n");
+	
+	affichache_UART();
+	affichage_XYZ(A0,A1);
+	
+	// RESET le bit TO de status pour relancer le timer
+	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_0_BASE, 0b01);
+}
+
+//Fonction pour l'initialisation de l'interruption du timer
+void init_timer_interrupt(){
+	if(alt_irq_register(TIMER_0_IRQ,NULL, timer_interrupt) != 0){
+		alt_printf("Erreur creation interruption pour le timer\n");
+	}
+}
+
 
 int main(){
 	alt_printf("\n\n\n\nDans le main\n\n");
@@ -222,13 +241,14 @@ int main(){
 	//Calibration
 	calibration();
 	
-	//Initialisation de l'interruption
+	//Initialisation de l'interruption pour le key
 	init_key_interrupt();
+	
+	//Initialisation de l'interruption pour le timer
+	init_timer_interrupt();
+	
 	
 	while(1){
 		
-		affichache_UART();
-		affichage_XYZ(A0,A1);
-		usleep(1000000);
 	}
 }
