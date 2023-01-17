@@ -69,7 +69,7 @@ void calibration(){
 	usleep(100000);
 	
 	//Ecriture OFSY
-	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSY,0);
+	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSY,2);
 	usleep(100000);
 	
 }
