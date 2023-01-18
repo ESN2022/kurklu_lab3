@@ -25,7 +25,11 @@ Par la suite, j'ai ajouté les PIO afin de pouvoir gérer mes I/O :
 * Un TIMER
 * PIO sur 1 bit pour le bouton
 
-
 # Avancement
+
+## Initialisation I2C
+## Affichage UART
+## Calibration
+## Affichage 7 segments
 
 # Conclusion
