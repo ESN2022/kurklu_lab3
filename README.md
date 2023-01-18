@@ -46,5 +46,14 @@ https://user-images.githubusercontent.com/24780090/213129209-90b0661f-3827-411d-
 
 
 ## Affichage 7 segments
+### Uniquement Z
+
+Pour l'affichage sur les 7 segments j'ai simplement repris le code vhdl bin_to_7seg et les fonctions du lab2. Néanmoins j'ai dû adapter le code dans la partie software afin de pouvoir gérer l'affichage sur les six 7 segments, mais aussi l'affichage des valeurs négatives. J'ai commencé par uniquement afficher Z.
+
+![IMG_7141](https://user-images.githubusercontent.com/24780090/213132988-1f8f82fc-3f36-4ac7-ba70-589a0c73d820.jpg)
+
+### XYZ avec bouton et interruption 
+### Utilisation du TIMER 
+
 
 # Conclusion
