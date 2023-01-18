@@ -33,9 +33,8 @@
 #define OFSZ  0x20
 
 #define CALIBX 0
-#define CALIBY 6
-#define CALIBZ 17
-
+#define CALIBY 2
+#define CALIBZ 18
 int A0,A1;
 
 //Fonction pour lire avec l'I2C
@@ -61,15 +60,15 @@ void ecriture_i2c(int base,int addr,int value){
 //Fonction pour la calibration 
 void calibration(){
 	//Ecriture OFSZ
-	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSZ,0);
+	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSZ,CALIBZ);
 	usleep(100000);
 	
 	//Ecriture OFSX
-	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSX,0);
+	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSX,CALIBX);
 	usleep(100000);
 	
 	//Ecriture OFSY
-	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSY,2);
+	ecriture_i2c(OPENCORES_I2C_0_BASE,OFSY,CALIBY);
 	usleep(100000);
 	
 }
@@ -146,7 +145,7 @@ void init_ADXL345(){
 	}
 	//Ecriture POWER_CTL
 	alt_printf("Ecriture 0X08 -> POWER_CTL\n");
-	ecriture_i2c(OPENCORES_I2C_0_BASE,POWER_CTL,0x8);
+	ecriture_i2c(OPENCORES_I2C_0_BASE,POWER_CTL,0x08);
 	usleep(100000);
 	
 	//Lecture POWER_CTL
@@ -156,7 +155,7 @@ void init_ADXL345(){
 	//D1=1 et D0=1 -> +-16g 
 	//Ecriture DATA_FORMAT
 	alt_printf("Ecriture 0x07 -> DATA_FORMAT\n");
-	ecriture_i2c(OPENCORES_I2C_0_BASE,DATA_FORMAT,0x7);
+	ecriture_i2c(OPENCORES_I2C_0_BASE,DATA_FORMAT,0x07);
 	usleep(100000);
 	
 	//Lecture DATA_FORMAT
@@ -171,22 +170,26 @@ void init_ADXL345(){
 //Fonction qui gere l'interruption avec le key
 static void key_interrupt(void *Context, alt_u32 id){
 	
-	alt_printf("INTERRUPT Key\n");
+	alt_printf("INTERRUPT Key\n\n");
 	
 	switch(A0){
 		case X0:
+			alt_printf("switch sur Y\n\n");
 			A0 = Y0;
 			A1 = Y1;
 			break;
 		case Y0:
+			alt_printf("switch sur Z\n\n");
 			A0 = Z0;
 			A1 = Z1;
 			break;
 		case Z0:
+			alt_printf("switch sur X\n\n");
 			A0 = X0;
 			A1 = X1;
 			break;
 		default:
+			alt_printf("switch sur Z\n\n");
 			A0 = X0;
 			A1 = X1;
 			break;
