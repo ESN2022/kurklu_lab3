@@ -32,6 +32,12 @@ Par la suite, j'ai ajouté les PIO afin de pouvoir gérer mes I/O :
 À l'aide des fichiers fournis par l'IP opencores_i2c, j'ai d'abord initialisé la communication avec l'i2c à l'aide de la fonction I2C_init() et la fonction I2C_start() sur le registre 0x1D pour vérifier son bon fonctionnement. J'ai ensuite écrit les deux fonctions ecriture_i2c() et lecture_i2c(), pour les lectures et écriture en m'aidant encore une fois des fichiers fournis par l'IP. J'ai ensuite réalisé des lectures sur les registres ACT_INACT_CTL(0X27), POWER_CTL(0x2D) et DATA_FORMAT(0x31), pour vérifier s'il était bien initialisé. J'ai finalement écrit 0x8 sur POWER_CTL, afin d'activer les mesures et 0x7, sur DATA_FORMAT afin d'être en full résolution de +-16g.
 
 ## Affichage UART
+
+Pour l'affichage sur l'UART j'ai d'abord lu les registres X0(0x32), X1(0x33), Y0(0x34), Y1(0x35), Z0(0x36) et Z1(0x37). J'ai ensuite réalisé un shift et un ou, entre le LSB et MSB afin d'avoir les mesures finales. Finalement j'ai affiché les veleurs obtenus sur l'UART.
+
+https://user-images.githubusercontent.com/24780090/213125986-3d57668c-5c14-4567-ad5c-54ee17405554.mov
+
+
 ## Calibration
 ## Affichage 7 segments
 
