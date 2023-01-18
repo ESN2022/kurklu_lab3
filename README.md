@@ -41,7 +41,8 @@ https://user-images.githubusercontent.com/24780090/213125986-3d57668c-5c14-4567-
 
 Pour la calibration j'ai d'abord écrit des 0 sur les registres, OFSX(0x1E), OFSY(0x1F) et OFSZ(0x20) afin d'enlever les valeurs d'offset. J'ai ensuite lu les mesures sur l'UART. Par exemple pour Z j'obtenais la valeur 7c0 --base(10)--> 1984 --x3.9--> 7737 mg. La valeur que l'on veut  pour Z, lorsque la carte et à plat est de 9800 mg, j'ai donc ajouté progressivement de l'offset dans le registre OFSZ afin d'obtenir le résultat souhaiter. J'ai réalisé la même démarche pour X ET Y afin d'obtenir pour les 2 registres la 0 mg.
 
-https://user-images.githubusercontent.com/24780090/213128463-bebdde23-f9a1-4730-a1e5-a36f1d428e3e.mov
+
+https://user-images.githubusercontent.com/24780090/213129209-90b0661f-3827-411d-8fb3-0ec773c4ee1a.mov
 
 
 ## Affichage 7 segments
