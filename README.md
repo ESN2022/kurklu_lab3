@@ -53,7 +53,15 @@ Pour l'affichage sur les 7 segments j'ai simplement repris le code vhdl bin_to_7
 ![IMG_7141](https://user-images.githubusercontent.com/24780090/213132988-1f8f82fc-3f36-4ac7-ba70-589a0c73d820.jpg)
 
 ### XYZ avec bouton et interruption 
+J'ai ensuite mis en place une interruption avec le bouton comme dans le lab1, afin de pouvoir switch entre la valeur de X,Y et Z.
+
+https://user-images.githubusercontent.com/24780090/213138352-a556ad66-c6c8-473f-b8b9-29fded84c194.mov
+
 ### Utilisation du TIMER 
+Pour le timer j'ai appliqué la même configuration que dans le lab2 afin de pouvoir metre à jour l'affichage toutes les 1s sur les 7 segments.
+
+
+https://user-images.githubusercontent.com/24780090/213139162-befcd064-8bdd-466c-8ed8-8d63e38a25b6.mov
 
 
 # Conclusion
