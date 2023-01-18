@@ -63,5 +63,10 @@ Pour le timer j'ai appliqué la même configuration que dans le lab2 afin de pou
 
 https://user-images.githubusercontent.com/24780090/213139162-befcd064-8bdd-466c-8ed8-8d63e38a25b6.mov
 
+Voici mon application finale :
+
+
+https://user-images.githubusercontent.com/24780090/213139660-b6834aa1-978d-40aa-8112-e57b28ad1e7c.mov
+
 
 # Conclusion
