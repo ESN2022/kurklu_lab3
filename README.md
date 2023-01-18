@@ -38,8 +38,6 @@ Pour l'affichage sur l'UART j'ai d'abord lu les registres X0(0x32), X1(0x33), Y0
 https://user-images.githubusercontent.com/24780090/213125986-3d57668c-5c14-4567-ad5c-54ee17405554.mov
 
 ## Calibration
-Pour la calibration j'ai d'abord ecrit des 0 sur les registres, OFSX(0x1E), OFSY(0x1F) et OFSZ(0x20) afin d'enlever les valeurs d'offset. J'ai ensuite lu les mesures sur l'UART. Par exemple pour Z j'obtenais la valeur 7c0 ---decimal--> 1984  7737mg. 
-
 
 Pour la calibration j'ai d'abord écrit des 0 sur les registres, OFSX(0x1E), OFSY(0x1F) et OFSZ(0x20) afin d'enlever les valeurs d'offset. J'ai ensuite lu les mesures sur l'UART. Par exemple pour Z j'obtenais la valeur 7c0 --base(10)--> 1984 --x3.9--> 7737 mg. La valeur que l'on veut  pour Z, lorsque la carte et à plat est de 9800 mg, j'ai donc ajouté progressivement de l'offset dans le registre OFSZ afin d'obtenir le résultat souhaiter. J'ai réalisé la même démarche pour X ET Y afin d'obtenir pour les 2 registres la 0 mg.
 
