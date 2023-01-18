@@ -70,3 +70,5 @@ https://user-images.githubusercontent.com/24780090/213139660-b6834aa1-978d-40aa-
 
 
 # Conclusion
+
+J'ai réussi à implementer les différentes fonctionnalités demander pour le lab3. Au niveau de la complexité ce Tp semblé plus complique, mais une fois la communication avec L'ADXL comprit le reste du travail était similaire au Tp précédents. Le seul point que je ne pense pas avoir bien reussi est la partie calibration. Je pense avoir appliqué la bonne méthode afin de calibrer l'accéléromètre, mais malgré cela je n'obtenais pas les bonnes valeurs sur les différents axes. Par exemple lorsque l'appareil était à plat sur la table, j'obtiens x=0, y=0 et z = 9700. Je m'attendais en retournant l'appareil à obtenir 0 mg pour x et y et -9700 mg pour z. J'ai bien 0 pour x et y mais pour Z j'obtiens -7300 mg, je ne sais pas si le problème vien de ma calibration ou de l'appareil.
